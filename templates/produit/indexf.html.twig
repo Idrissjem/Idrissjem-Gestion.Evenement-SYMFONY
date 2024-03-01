@@ -1,0 +1,32 @@
+{% extends 'client/index.html.twig' %}
+
+{% block title %}Index des Produits{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="d-flex justify-content-end mb-4">
+        <a href="#" class="btn btn-primary">Welcome</a>
+    </div>
+    <div class="row">
+        {% for produit in produits %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <img src="{{ asset('img/' ~ produit.image) }}" class="card-img-top" alt="{{ produit.nom }}" style="height: 200px; width: 100%; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ produit.nom }}</h5>
+                    <p class="card-text"><strong>Prix:</strong> {{ produit.prix }} €</p>
+                    <p class="card-text"><strong>Marque:</strong> {{ produit.marque }}</p>
+                </div>
+                <div class="card-footer bg-white">
+                    <a href="{{ path('app_produit_showf', {'id': produit.id}) }}" class="btn btn-info">Voir Détails</a>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="col-12">
+            <p class="text-center">Aucun produit trouvé</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

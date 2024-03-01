@@ -1,0 +1,35 @@
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+
+<div class="form-group">
+    {{ form_label(form.nom) }}
+    {{ form_widget(form.nom) }}
+    {{ form_errors(form.nom) }}
+</div>
+
+<div class="form-group">
+    {{ form_label(form.prix) }}
+    {{ form_widget(form.prix) }}
+    {{ form_errors(form.prix) }}
+</div>
+
+<div class="form-group">
+    {{ form_label(form.marque) }}
+    {{ form_widget(form.marque) }}
+    {{ form_errors(form.marque) }}
+</div>
+
+<div class="form-group">
+    {{ form_label(form.image) }}
+    {{ form_widget(form.image) }}
+    {{ form_errors(form.image) }}
+</div>
+
+<div class="form-group">
+    {{ form_label(form.user) }}
+    {{ form_widget(form.user) }}
+    {{ form_errors(form.user) }}
+</div>
+
+{{ form_widget(form.save) }}
+
+{{ form_end(form) }}

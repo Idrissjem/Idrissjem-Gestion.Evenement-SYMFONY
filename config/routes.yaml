@@ -1,0 +1,21 @@
+# config/routes.yaml
+
+app_blog:
+    path: /blog
+    controller: App\Controller\BlogController::index
+
+app_admin:
+    path: /admin
+    controller: App\Controller\BlogController::indexadmin
+app_logout:
+    path: /logout
+    controller: App\Controller\SecurityController::logout
+
+
+app_client:
+    path: /client
+    controller: App\Controller\BlogController::indexclient
+    
+app_reset_password:
+    path: /reset_password
+    controller: App\Controller\SecurityController::resetPass

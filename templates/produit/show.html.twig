@@ -1,0 +1,35 @@
+{% extends 'admin/index.html.twig' %}
+
+{% block title %}Produit{% endblock %}
+
+{% block body %}
+    <h1>Produit</h1>
+
+    <table class="table">
+        <tbody>
+          
+            <tr>
+                <th>Nom</th>
+                <td>{{ produit.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prix</th>
+                <td>{{ produit.prix }}</td>
+            </tr>
+            <tr>
+                <th>Marque</th>
+                <td>{{ produit.marque }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td><img src="{{ asset('img/' ~ produit.image) }}" class="card-img-top" alt="#" style="height: 60px; width: 100px; object-fit: cover;"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_produit_index') }}">back to list</a>
+
+    <a href="{{ path('app_produit_edit', {'id': produit.id}) }}">edit</a>
+
+    {{ include('produit/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'admin/index.html.twig' %}
+
+{% block title %}Edit User{% endblock %}
+
+{% block body %}
+    <form {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}>
+    {{ form_row(form.email, {'attr': {'class': 'form-group'}}) }}
+    {{ form_row(form.password, {'attr': {'class': 'form-group'}}) }}
+    {{ form_row(form.name, {'attr': {'class': 'form-group'}}) }}
+    {{ form_row(form.prenom, {'attr': {'class': 'form-group'}}) }}
+    {{ form_row(form.tel, {'attr': {'class': 'form-group'}}) }}
+    {{ form_row(form.image, {'attr': {'class': 'form-group'}}) }}
+    
+    <button type="submit" class="btn btn-primary">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
+
+{% endblock %}

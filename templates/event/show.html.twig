@@ -1,0 +1,40 @@
+{% extends 'admin/index.html.twig' %}
+
+{% block title %}Event{% endblock %}
+
+{% block body %}
+    <h1>Event</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ event.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ event.nom }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ event.description }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+				<td><img src="{{ asset('img/' ~ event.image) }}" class="card-img-top" alt="#" style="width: 30%; height: auto;">
+            </tr>
+            <tr>
+                <th>Lieu</th>
+                <td>{{ event.lieu }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ event.date ? event.date|date('Y-m-d ') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_event_index') }}">back to list</a>
+
+
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends 'admin/index.html.twig' %}
+
+{% block title %}User index{% endblock %}
+
+{% block body %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3" style="display: flex; justify-content: space-between; align-items: center;">
+            <h6 class="m-0 font-weight-bold text-primary">Users</h6>
+            <div>
+                <input type="text" id="searchInput" placeholder="Search by name...">
+                <button id="sortByNameBtn" class="btn btn-sm btn-secondary">Sort by Name</button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Prenom</th>
+                            <th>Email</th>
+                            <th>Roles</th>
+                            <th>Tel</th>
+                            <th>Image</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                            <tr>
+                                <td>{{ user.name }}</td>
+                                <td>{{ user.prenom }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                                <td>{{ user.tel }}</td>
+                                <td><img src="{{ asset('img/' ~ user.image) }}" class="card-img-top" alt="#" style="height: 60px; width: 100px; object-fit: cover;"></td>
+                                <td>
+                                    <a class="btn btn-danger btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-trash"></i>
+                                        </span>
+                                        <span class="text"> {{ include('user/_delete_form.html.twig') }}</span>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="7">No records found</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Search functionality
+            $('#searchInput').on('input', function() {
+                var searchText = $(this).val().toLowerCase();
+                $('#dataTable tbody tr').each(function() {
+                    var text = $(this).text().toLowerCase();
+                    $(this).toggle(text.includes(searchText));
+                });
+            });
+
+            // Sorting by name
+            $('#sortByNameBtn').click(function() {
+                var rows = $('#dataTable tbody tr').get();
+                rows.sort(function(a, b) {
+                    var nameA = $(a).find('td:eq(0)').text().toUpperCase();
+                    var nameB = $(b).find('td:eq(0)').text().toUpperCase();
+                    return (nameA < nameB) ? -1 : (nameA > nameB) ? 1 : 0;
+                });
+                $.each(rows, function(index, row) {
+                    $('#dataTable tbody').append(row);
+                });
+            });
+        });
+    </script>
+{% endblock %}

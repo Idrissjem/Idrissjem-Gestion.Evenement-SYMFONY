@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User Profile{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        User Profile
+                    </div>
+                    <div class="card-body">
+                        <dl class="row">
+                            <dt class="col-sm-4">Id:</dt>
+                            <dd class="col-sm-8">{{ user.id }}</dd>
+
+                            <dt class="col-sm-4">Email:</dt>
+                            <dd class="col-sm-8">{{ user.email }}</dd>
+
+                           
+
+                            <dt class="col-sm-4">Name:</dt>
+                            <dd class="col-sm-8">{{ user.name }}</dd>
+
+                            <dt class="col-sm-4">Prenom:</dt>
+                            <dd class="col-sm-8">{{ user.prenom }}</dd>
+
+                            <dt class="col-sm-4">Tel:</dt>
+                            <dd class="col-sm-8">{{ user.tel }}</dd>
+
+                           
+
+                            <dt class="col-sm-4">Username:</dt>
+                            <dd class="col-sm-8">{{ user.username }}</dd>
+                        </dl>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{{ path('app_user_index') }}" class="btn btn-secondary">Back to List</a>
+                        <a href="{{ path('app_user_editf', {'id': user.id}) }}" class="btn btn-primary">Edit</a>
+                        {{ include('user/_delete_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

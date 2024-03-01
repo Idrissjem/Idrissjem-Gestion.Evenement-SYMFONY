@@ -1,0 +1,55 @@
+{% extends 'admin/index.html.twig' %}
+
+{% block title %}Event index{% endblock %}
+
+{% block body %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3" style="display: flex; justify-content: space-between; align-items: center;">
+            <h6 class="m-0 font-weight-bold text-primary">MANAGE EVENTS</h6>
+            <a href="{{ path('app_event_new') }}" class="btn btn-success btn-icon-split">
+                <span class="text">ADD EVENT</span>
+            </a>
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Lieu</th>
+                            <th>Date</th>
+                            <th>Image</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for event in events %}
+                        <tr>
+                            <td>{{ event.nom }}</td>
+                            <td>{{ event.description }}</td>
+                            <td>{{ event.lieu }}</td>
+                            <td>{{ event.date ? event.date|date('Y-m-d ') : 'N/A' }}</td>
+                            <td><img src="{{ asset('img/' ~ event.image) }}" alt="#" style="height: 50px; width: auto;"></td>
+                            <td>
+                                <a href="{{ path('app_event_show', {'id': event.id}) }}" class="btn btn-primary btn-icon-split">
+                                    <span class="text">Show</span>
+                                </a>
+                                <a href="{{ path('app_event_edit', {'id': event.id}) }}" class="btn btn-warning btn-icon-split">
+                                    <span class="text">Edit</span>
+                                </a>
+                             
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="6">No records found</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

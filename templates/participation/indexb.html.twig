@@ -1,0 +1,51 @@
+{% extends 'admin/index.html.twig' %}
+
+{% block title %}Participation index{% endblock %}
+
+{% block body %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3" style="display: flex; justify-content: space-between; align-items: center;">
+            <h6 class="m-0 font-weight-bold text-primary">MANAGE PARTICIPATIONS</h6>
+            
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nom</th>
+                            <th>Prenom</th>
+                            <th>Tel</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for participation in participations %}
+                        <tr>
+                            <td>{{ participation.id }}</td>
+                            <td>{{ participation.nom }}</td>
+                            <td>{{ participation.prenom }}</td>
+                            <td>{{ participation.tel }}</td>
+                            <td>{{ participation.date ? participation.date|date('Y-m-d ') : 'N/A' }}</td>
+                           <td>
+    <a href="{{ path('app_participation_showb', {'id': participation.id}) }}" class="btn btn-primary btn-icon-split">
+        <span class="text">Show</span>
+    </a>
+    {% include 'participation/_delete_formb.html.twig' with {'id': participation.id} %}
+</td>
+
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="7">No records found</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

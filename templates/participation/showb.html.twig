@@ -1,0 +1,34 @@
+{% extends 'admin/index.html.twig' %}
+
+{% block title %}Participation{% endblock %}
+
+{% block body %}
+    <h1>Participation</h1>
+
+    <table class="table">
+        <tbody>
+       
+            <tr>
+                <th>Nom</th>
+                <td>{{ participation.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ participation.prenom }}</td>
+            </tr>
+           
+            <tr>
+                <th>Tel</th>
+                <td>{{ participation.tel }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ participation.date ? participation.date|date('Y-m-d ') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_participation_indexb') }}">back to list</a>
+
+
+{% endblock %}

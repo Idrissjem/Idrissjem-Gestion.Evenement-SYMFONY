@@ -1,0 +1,34 @@
+
+
+
+
+{% block body %}
+<div class="container mt-5">
+    {{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
+    
+    <div class="mb-3">
+        {{ form_row(form.nom, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="mb-3">
+        {{ form_row(form.prenom, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="mb-3">
+        {{ form_row(form.email, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="mb-3">
+        {{ form_row(form.tel, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="mb-3">
+        {{ form_row(form.date, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="mb-3">
+        {{ form_row(form.user, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="mb-3">
+        {{ form_row(form.event, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <button type="submit" class="btn btn-primary">Enregistrer</button>
+    {{ form_end(form) }}
+</div>
+{% endblock %}

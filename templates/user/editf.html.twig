@@ -1,0 +1,52 @@
+{% extends 'client/index.html.twig' %}
+
+{% block title %}Edit User{% endblock %}
+{% block navbar %}
+
+{% endblock %}
+{% block footer %}
+{% endblock %}
+
+{% block body %}
+<div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="w-50"> <!-- Ajustez la classe w-50 selon la largeur souhaitée -->
+        <form {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>{{ form_label(form.email) }}</td>
+                        <td>{{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(form.password.first) }}</td>
+                        <td>{{ form_widget(form.password.first, {'attr': {'class': 'form-control'}}) }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(form.password.second) }}</td>
+                        <td>{{ form_widget(form.password.second, {'attr': {'class': 'form-control'}}) }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(form.name) }}</td>
+                        <td>{{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(form.prenom) }}</td>
+                        <td>{{ form_widget(form.prenom, {'attr': {'class': 'form-control'}}) }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(form.tel) }}</td>
+                        <td>{{ form_widget(form.tel, {'attr': {'class': 'form-control'}}) }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(form.image) }}</td>
+                        <td>{{ form_widget(form.image, {'attr': {'class': 'form-control'}}) }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="text-center mt-3">
+                <button type="submit" class="btn btn-primary">{{ button_label|default('Save') }}</button>
+            </div>
+        {{ form_end(form) }}
+    </div>
+</div>
+{% endblock %}
