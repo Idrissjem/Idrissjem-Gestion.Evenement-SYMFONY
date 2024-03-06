@@ -3,16 +3,23 @@
 {% block title %}Réinitialisation de mot de passe{% endblock %}
 
 {% block body %}
-<section class="container my-3">
-    <div class="row">
-        <div class="col">
-            <h1>Réinitialisation de mot de passe</h1>
-            {{ form_start(requestPassForm) }}
-                {{ form_row(requestPassForm.email) }}
-                <button type="submit" class="btn btn-primary">Envoyer</button>
-            {{ form_end(requestPassForm) }}
+<section class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h1 class="card-title text-center mb-4">Réinitialisation de mot de passe</h1>
+                    {{ form_start(requestPassForm) }}
+                        <div class="mb-3">
+                            {{ form_row(requestPassForm.email, {'attr': {'class': 'form-control', 'placeholder': 'Votre adresse e-mail'}}) }}
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-block">Envoyer</button>
+                        </div>
+                    {{ form_end(requestPassForm) }}
+                </div>
+            </div>
         </div>
     </div>
 </section>
-
 {% endblock %}

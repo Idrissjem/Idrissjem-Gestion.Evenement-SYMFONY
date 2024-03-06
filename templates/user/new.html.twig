@@ -6,11 +6,17 @@
     <h1>Create new User</h1>
 
     {{ include('user/_form.html.twig') }}
- <button
-                    class="block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-                    type="submit"
-                >
-                    Register
-            </button>
-    <a href="{{ path('app_user_index') }}">back to list</a>
+
+    <div class="flex justify-between items-center mt-4">
+        <button
+            class="flex items-center px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+            type="submit"
+        >
+            <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+            </svg>
+            Register
+        </button>
+        <a href="{{ path('app_user_index') }}" class="text-gray-500 hover:text-gray-700">Back to list</a>
+    </div>
 {% endblock %}

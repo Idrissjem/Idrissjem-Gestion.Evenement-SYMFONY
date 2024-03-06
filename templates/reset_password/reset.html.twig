@@ -1,12 +1,63 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Reset your password{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Reset your password{% endblock %}</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
 
 {% block body %}
-    <h1>Reset your password</h1>
-
-    {{ form_start(resetForm) }}
-        {{ form_row(resetForm.plainPassword) }}
-        <button class="btn btn-primary">Reset password</button>
-    {{ form_end(resetForm) }}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="text-center mb-4">Reset your password</h1>
+                    <form id="resetPasswordForm">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                </div>
+                                <input type="password" id="plainPassword" name="plainPassword" class="form-control" placeholder="New Password">
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-sync-alt"></i> Reset password</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
+
+<!-- Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    // Adjust the height of the container based on viewport height
+    window.onload = function() {
+        resizeContainer();
+    };
+
+    window.onresize = function() {
+        resizeContainer();
+    };
+
+    function resizeContainer() {
+        var windowHeight = window.innerHeight;
+        var containerHeight = document.querySelector('.container').offsetHeight;
+        var remainingHeight = windowHeight - containerHeight;
+
+        // Adjust the height of the container to fill the remaining viewport height
+        document.querySelector('.container').style.minHeight = windowHeight + 'px';
+    }
+</script>
+
+</body>
+</html>

@@ -19,3 +19,21 @@ app_client:
 app_reset_password:
     path: /reset_password
     controller: App\Controller\SecurityController::resetPass
+    # config/routes.yaml
+# config/routes.yaml
+
+# config/routes.yaml
+
+paginate_users:
+    path: '/paginate-users'
+    controller: App\Controller\UserController::index
+    methods: ['POST']
+
+sort_users:
+    path: '/sort-users'
+    controller: App\Controller\UserController::index
+    methods: ['POST']
+app_user_show:
+    path: /user/{id}
+    controller: App\Controller\UserController::show
+    

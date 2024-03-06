@@ -12,17 +12,31 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 #[Route('/user')]
 class UserController extends AbstractController
 {
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
-    public function index(UserRepository $userRepository): Response
+    public function index(Request $request, UserRepository $userRepository, PaginatorInterface $paginator): Response
     {
+        $currentPage = $request->query->getInt('page', 1);
+        $pageSize = 10; // Number of items per page
+        $paginatedData = $paginator->paginate(
+            $userRepository->findAll(),
+            $currentPage,
+            $pageSize
+        );
+    
         return $this->render('user/index.html.twig', [
             'users' => $userRepository->findAll(),
+            'paginatedData' => $paginatedData
         ]);
     }
+    
+    
     #[Route('d/{id}', name: 'app_user_delete', methods: ['POST'])]
     public function deletee(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
@@ -171,4 +185,58 @@ class UserController extends AbstractController
 
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
+   
+    #[Route('/banUser/{id}', name: 'ban_user', methods: ['GET', 'POST'])]
+    public function banUser(Request $request, UserRepository $userRepository,int $id): Response
+    {
+        // Retrieve the search query from the request
+        $user = $userRepository->find($id);
+  
+        // Perform the search operation based on the query
+         $userRepository->banUnbanUser($user);
+  
+        // Return the search results as JSON response
+        return $this->redirectToRoute('app_user_index');
+    }
+    #[Route('/search', name: 'search_users', methods: ['POST'])]
+public function search(Request $request, UserRepository $userRepository): Response
+{
+    $searchText = $request->request->get('searchText');
+    $users = $userRepository->findBySearchText($searchText); // Implement findBySearchText() method in UserRepository
+
+    return $this->render('user/search_results.html.twig', [
+        'users' => $users,
+    ]);
+}
+#[Route('/search-and-sort', name: 'search_and_sort_users', methods: ['POST'])]
+public function searchAndSort(Request $request, UserRepository $userRepository): Response
+{
+    $searchText = $request->request->get('searchText');
+    $sortBy = $request->request->get('sortBy');
+
+    if ($sortBy === 'name') {
+        $users = $userRepository->findBySearchTextAndSortByName($searchText); // Implement findBySearchTextAndSortByName() method in UserRepository
+    } else {
+        $users = $userRepository->findBySearchText($searchText); // Implement findBySearchText() method in UserRepository
+    }
+
+    return $this->render('user/search_and_sort_results.html.twig', [
+        'users' => $users,
+    ]);
+}
+#[Route('/mailer', name: 'app_mailer')]
+public function sendEmail(MailerInterface $mailer)
+{
+    $email = (new Email());
+
+//….
+$mailer->send($email);
+
+    // …
+  return new Response(
+      'Email was sent'
+   );
+}
 }

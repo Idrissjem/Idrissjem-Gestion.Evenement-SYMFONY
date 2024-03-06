@@ -1,9 +1,6 @@
-{% extends 'base.html.twig' %}
+{% extends 'base1.html.twig' %}
 
 {% block title %}User Profile{% endblock %}
-
-{% block navbar %}
-{% endblock %}
 
 {% block body %}
     <div class="container mt-5">
@@ -21,6 +18,8 @@
                             <dt class="col-sm-4">Email:</dt>
                             <dd class="col-sm-8">{{ user.email }}</dd>
 
+                           
+
                             <dt class="col-sm-4">Name:</dt>
                             <dd class="col-sm-8">{{ user.name }}</dd>
 
@@ -30,13 +29,15 @@
                             <dt class="col-sm-4">Tel:</dt>
                             <dd class="col-sm-8">{{ user.tel }}</dd>
 
+                           
+
                             <dt class="col-sm-4">Username:</dt>
                             <dd class="col-sm-8">{{ user.username }}</dd>
                         </dl>
                     </div>
                     <div class="card-footer">
-                        <a href="{{ path('app_user_index') }}"><i class="fas fa-arrow-left"></i> Back to Home Page</a>
-                        <a href="{{ path('app_user_editf', {'id': user.id}) }}"><i class="fas fa-edit"></i> Edit</a>
+                        <a href="{{ path('app_user_index') }}" class="btn btn-secondary">Back to List</a>
+                        <a href="{{ path('app_user_editf', {'id': user.id}) }}" class="btn btn-primary">Edit</a>
                         {{ include('user/_delete_form.html.twig') }}
                     </div>
                 </div>

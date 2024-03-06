@@ -1,15 +1,16 @@
 {% extends 'client/index.html.twig' %}
 
 {% block title %}Edit User{% endblock %}
-{% block navbar %}
 
-{% endblock %}
+
+
 {% block footer %}
+    {# Add any footer content here if needed #}
 {% endblock %}
 
 {% block body %}
 <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
-    <div class="w-50"> <!-- Ajustez la classe w-50 selon la largeur souhaitée -->
+    <div class="w-50">
         <form {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}>
             <table class="table">
                 <tbody>
@@ -46,7 +47,7 @@
             <div class="text-center mt-3">
                 <button type="submit" class="btn btn-primary">{{ button_label|default('Save') }}</button>
             </div>
-        {{ form_end(form) }}
+        </form>
     </div>
 </div>
 {% endblock %}

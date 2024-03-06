@@ -25,6 +25,20 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         parent::__construct($registry, User::class);
     }
 
+    public function findAllPaginated($currentPage, $pageSize)
+    {
+        $query = $this->createQueryBuilder('e')
+            ->getQuery();
+
+        $paginator = new Paginator($query);
+
+        $paginator
+            ->getQuery()
+            ->setFirstResult(($currentPage - 1) * $pageSize) // Offset
+            ->setMaxResults($pageSize); // Limit
+
+        return $paginator->getIterator();
+    }
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
      */
@@ -37,6 +51,17 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $user->setPassword($newHashedPassword);
         $this->getEntityManager()->persist($user);
         $this->getEntityManager()->flush();
+    }
+
+    public function banUnbanUser($user): void
+    {
+        // Toggle the isBanned status of the user
+        $isBanned = $user->getIsBanned();
+        $user->setIsBanned(!$isBanned);
+        
+        // Update the user entity in the database
+        $this->_em->persist($user); // Assuming your repository extends EntityRepository
+        $this->_em->flush();
     }
 
 //    /**

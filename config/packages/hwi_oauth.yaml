@@ -1,0 +1,8 @@
+hwi_oauth:
+    firewall_names: [main]
+    resource_owners:
+        facebook:
+            type: facebook
+            client_id: '%env(1169479483977263)%'
+            client_secret: '%env(b7e80c9ae4109da658221a498cca536e)%'
+            scope: "email"

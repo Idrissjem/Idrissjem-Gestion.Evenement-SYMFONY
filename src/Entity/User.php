@@ -57,8 +57,25 @@ class User implements UserInterface
 
     #[ORM\Column(length: 255)]
     private ?string $username = null;
+
     #[ORM\Column(type:'string', length: 255)]
-    private $resetToken;
+    private ?string $resetToken = null;
+
+    #[ORM\Column]
+    private ?bool $isBanned = false; 
+
+
+    public function getIsBanned(): ?bool
+    {
+        return $this->isBanned;
+    }
+
+    // Setter for isBanned
+    public function setIsBanned(?bool $isBanned): self
+    {
+        $this->isBanned = $isBanned;
+        return $this;
+    }
 
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Produit::class)]
@@ -217,6 +234,16 @@ public function setUsername(string $username): static
 
     return $this;
 }
+
+
+
+
+
+
+
+
+
+
 public function getResetToken() : ?sttring
 {
     return $this->resetToken ;
