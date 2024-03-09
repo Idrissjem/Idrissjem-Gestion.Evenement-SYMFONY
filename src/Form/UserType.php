@@ -20,6 +20,7 @@ class UserType extends AbstractType
                 'first_options'=>['label'=>'Password'],
                 'second_options'=>['label'=>'Confirm Password']
             ])
+
         ;
     }
 

@@ -12,13 +12,14 @@ app_logout:
     controller: App\Controller\SecurityController::logout
 
 
+
 app_client:
     path: /client
     controller: App\Controller\BlogController::indexclient
     
 app_reset_password:
     path: /reset_password
-    controller: App\Controller\SecurityController::resetPass
+    controller: App\Controller\SecurityController::resetPassword
     # config/routes.yaml
 # config/routes.yaml
 

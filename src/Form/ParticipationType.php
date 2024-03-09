@@ -24,14 +24,7 @@ class ParticipationType extends AbstractType
                 'attr' => ['class' => 'form-control my-date-class'], // Ajout de la classe form-control pour Bootstrap
                 'label' => 'Date de l\'événement',
             ])
-                ->add('user', EntityType::class, [
-                    'class' => User::class,
-                    'choice_label' => function(User $user) {
-                        return $user->getName(); // Assurez-vous d'avoir une méthode getName() dans votre entité User
-                    },
-                    'label' => 'Utilisateur',
-                    'attr' => ['class' => 'form-control'], // Bootstrap styling
-                ])
+                 
             ->add('event', EntityType::class, [
                 'class' => Event::class,
                 'choice_label' => function(Event $event) {
@@ -39,7 +32,8 @@ class ParticipationType extends AbstractType
                 },
                 'label' => 'Événement',
                 'attr' => ['class' => 'form-control'], // Bootstrap styling
-            ]);
+            ])
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use VictorPrdh\RecaptchaBundle\Validator\Constraints\IsValidCaptcha;
 
 class User1Type extends AbstractType
 {
@@ -32,6 +33,8 @@ class User1Type extends AbstractType
                 'required' => false,
                 'attr' => ['accept' => 'image/*'],
             ])
+
+            
            
         ;
     }

@@ -41,7 +41,6 @@ class Participation
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $date = null;
 
-    #[Assert\NotBlank(message: 'User ne peut pas être vide.')]
     #[ORM\ManyToOne(inversedBy: 'participation')]
     private ?User $user = null;
 

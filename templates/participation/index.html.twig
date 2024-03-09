@@ -4,22 +4,23 @@
 
 {% block body %}
     <h1>Participation index</h1>
-
-    <table class="table">
+<div class="input-group no-border">
+            <input type="text" value="" class="form-control" placeholder="Search..." id="myInput">
+            <button type="submit" class="btn btn-default btn-round btn-just-icon"></button>
+        </div>
+    <table  id="anotherTable" class="table table-bordered"  class="table table-bordered" id="dataTable">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Prenom</th>
-                <th>Tel</th>
-                <th>Date</th>
+                <th onclick="sortTable(0)">Nom</th>
+                <th onclick="sortTable(1)">Prenom</th>
+                <th onclick="sortTable(2)">Tel</th>
+                <th onclick="sortTable(3)">Date</th>
                 <th>actions</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="myTable" >
         {% for participation in participations %}
             <tr>
-                <td>{{ participation.id }}</td>
                 <td>{{ participation.nom }}</td>
                 <td>{{ participation.prenom }}</td>
                 <td>{{ participation.tel }}</td>
@@ -38,4 +39,60 @@
     </table>
 
     <a href="{{ path('app_participation_new') }}">Create new</a>
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function(){
+        $("#myInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+
+    function sortTable(n) {
+        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+        table = document.getElementById("anotherTable");
+        switching = true;
+        dir = "asc";
+
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("TD")[n];
+                y = rows[i + 1].getElementsByTagName("TD")[n];
+
+                if (dir == "asc") {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else if (dir == "desc") {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+            }
+
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+                switchcount++;
+            } else {
+                if (switchcount == 0 && dir == "asc") {
+                    dir = "desc";
+                    switching = true;
+                }
+            }
+        }
+    }
+</script>
 {% endblock %}

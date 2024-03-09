@@ -30,10 +30,10 @@ class Produit
     private ?float $prix = null;
     
 
-    #[Assert\NotBlank(message: 'nom ne peut pas être vide.')]
-    #[Assert\Length(max: 8, maxMessage: 'nom ne peut pas dépasser {{ limit }} caractères.')]
-    #[ORM\Column(length: 255)]
-    private ?string $marque = null;
+    // #[Assert\NotBlank(message: 'nom ne peut pas être vide.')]
+    // #[Assert\Length(max: 8, maxMessage: 'nom ne peut pas dépasser {{ limit }} caractères.')]
+    // #[ORM\Column(length: 255)]
+    // private ?string $marque = null;
 
     #[ORM\Column(length: 255)]
     private ?string $image = null;
@@ -70,17 +70,17 @@ class Produit
         return $this;
     }
 
-    public function getMarque(): ?string
-    {
-        return $this->marque;
-    }
+    // public function getMarque(): ?string
+    // {
+    //     return $this->marque;
+    // }
 
-    public function setMarque(string $marque): static
-    {
-        $this->marque = $marque;
+    // public function setMarque(string $marque): static
+    // {
+    //     $this->marque = $marque;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     public function getImage(): ?string
     {
@@ -102,6 +102,63 @@ class Produit
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+    #[ORM\Column]
+    private ?int $likes = 0;
+   
+
+    #[ORM\Column]
+    private ?int $dis = 0;
+
+    #[ORM\ManyToOne(inversedBy: 'produits')]
+    private ?Category $category = null;
+    
+    public function incrementDislikes(): void
+    {
+        $this->dis++;
+    }
+
+    public function getLikes(): int
+    {
+        return $this->likes;
+    }
+
+    public function setLikes(int $likes): void
+    {
+        $this->likes = $likes;
+    }
+
+    public function getDislikes(): int
+    {
+        return $this->dis;
+    }
+
+    public function setDislikes(int $dislikes): void
+    {
+        $this->dis = $dislikes;
+    }
+
+    public function incrementLikes(): void
+    {
+        $this->likes++;
+    }
+
+    
+    public function checkAndDeleteIfRequired(): bool
+    {
+        return $this->dis - $this->likes >= 2;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): static
+    {
+        $this->category = $category;
 
         return $this;
     }

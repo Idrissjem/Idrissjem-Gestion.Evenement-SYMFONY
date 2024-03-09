@@ -14,7 +14,11 @@
                         User Profile
                     </div>
                     <div class="card-body">
+                        <div class="text-center mb-4">
+                            <img src="{{ asset('path/to/avatar.jpg') }}" alt="Avatar" class="rounded-circle" style="width: 100px; height: 100px;">
+                        </div>
                         <dl class="row">
+                            
                             <dt class="col-sm-4">Id:</dt>
                             <dd class="col-sm-8">{{ user.id }}</dd>
 
@@ -35,8 +39,8 @@
                         </dl>
                     </div>
                     <div class="card-footer">
-                        <a href="{{ path('app_user_index') }}"><i class="fas fa-arrow-left"></i> Back to Home Page</a>
-                        <a href="{{ path('app_user_editf', {'id': user.id}) }}"><i class="fas fa-edit"></i> Edit</a>
+                        <a href="{{ path('app_user_index') }}"><i class="fas fa-arrow-left"></i> Display list </a>
+                        <a href="{{ path('app_user_editf', {'id': user.id}) }}"><i class="fas fa-edit"></i> Edit User</a>
                         {{ include('user/_delete_form.html.twig') }}
                     </div>
                 </div>

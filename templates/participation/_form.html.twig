@@ -1,34 +1,41 @@
+{{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': ''}}) }}
 
-
-
-
-{% block body %}
-<div class="container mt-5">
-    {{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
-    
-    <div class="mb-3">
-        {{ form_row(form.nom, {'attr': {'class': 'form-control'}}) }}
-    </div>
-    <div class="mb-3">
-        {{ form_row(form.prenom, {'attr': {'class': 'form-control'}}) }}
-    </div>
-    <div class="mb-3">
-        {{ form_row(form.email, {'attr': {'class': 'form-control'}}) }}
-    </div>
-    <div class="mb-3">
-        {{ form_row(form.tel, {'attr': {'class': 'form-control'}}) }}
-    </div>
-    <div class="mb-3">
-        {{ form_row(form.date, {'attr': {'class': 'form-control'}}) }}
-    </div>
-    <div class="mb-3">
-        {{ form_row(form.user, {'attr': {'class': 'form-control'}}) }}
-    </div>
-    <div class="mb-3">
-        {{ form_row(form.event, {'attr': {'class': 'form-control'}}) }}
-    </div>
-
-    <button type="submit" class="btn btn-primary">Enregistrer</button>
-    {{ form_end(form) }}
+<div class="mb-3">
+    {{ form_label(form.nom, 'Nom', {'label_attr': {'class': 'form-label'}}) }}
+    {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+    {{ form_errors(form.nom) }}
 </div>
-{% endblock %}
+
+<div class="mb-3">
+    {{ form_label(form.prenom, 'Prénom', {'label_attr': {'class': 'form-label'}}) }}
+    {{ form_widget(form.prenom, {'attr': {'class': 'form-control'}}) }}
+    {{ form_errors(form.prenom) }}
+</div>
+
+<div class="mb-3">
+    {{ form_label(form.email, 'Email', {'label_attr': {'class': 'form-label'}}) }}
+    {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+    {{ form_errors(form.email) }}
+</div>
+
+<div class="mb-3">
+    {{ form_label(form.tel, 'Téléphone', {'label_attr': {'class': 'form-label'}}) }}
+    {{ form_widget(form.tel, {'attr': {'class': 'form-control'}}) }}
+    {{ form_errors(form.tel) }}
+</div>
+
+<div class="mb-3">
+    {{ form_label(form.date, 'Date', {'label_attr': {'class': 'form-label'}}) }}
+    {{ form_widget(form.date, {'attr': {'class': 'form-control'}}) }}
+    {{ form_errors(form.date) }}
+</div>
+
+<div class="mb-3">
+    {{ form_label(form.event, 'event', {'label_attr': {'class': 'form-label'}}) }}
+    {{ form_widget(form.event, {'attr': {'class': 'form-control'}}) }}
+    {{ form_errors(form.event) }}
+</div>
+
+<button type="submit" class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+
+{{ form_end(form) }}

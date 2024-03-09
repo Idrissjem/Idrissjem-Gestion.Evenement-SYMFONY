@@ -4,18 +4,37 @@
 
 {% block navbar %}
 {% endblock %}
+
 {% block footer %}
 {% endblock %}
-{% block body %}
-    <form {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}>
-    {{ form_row(form.email, {'attr': {'class': 'form-group'}}) }}
-    {{ form_row(form.password, {'attr': {'class': 'form-group'}}) }}
-    {{ form_row(form.name, {'attr': {'class': 'form-group'}}) }}
-    {{ form_row(form.prenom, {'attr': {'class': 'form-group'}}) }}
-    {{ form_row(form.tel, {'attr': {'class': 'form-group'}}) }}
-    {{ form_row(form.image, {'attr': {'class': 'form-group'}}) }}
-    
-    <button type="submit" class="btn btn-primary">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
 
+{% block body %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}>
+                <div class="form-group">
+                    {{ form_row(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Email'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.password, {'attr': {'class': 'form-control', 'placeholder': 'Password'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.name, {'attr': {'class': 'form-control', 'placeholder': 'Name'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.prenom, {'attr': {'class': 'form-control', 'placeholder': 'Prenom'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.tel, {'attr': {'class': 'form-control', 'placeholder': 'Tel'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.image, {'attr': {'class': 'form-control-file'}}) }}
+                </div>
+
+                <button type="submit" class="btn btn-primary">{{ button_label|default('Save') }}</button>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}

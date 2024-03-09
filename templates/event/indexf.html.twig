@@ -1,32 +1,38 @@
 {% extends 'client/index.html.twig' %}
 
-{% block title %}Event index{% endblock %}
+{% block title %}Event index
+{% endblock %}
 
 {% block body %}
 
-    <div class="row">
-        {% for event in events %}
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="{{ asset('img/' ~ event.image) }}" class="card-img-top" alt="#" style="height: 200px; object-fit: cover;">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ event.nom }}</h5>
-                        <p class="card-text">{{ event.description }}</p>
-                        <p class="card-text"><strong>Lieu:</strong> {{ event.lieu }}</p>
-                        <p class="card-text"><strong>Date:</strong> {{ event.date ? event.date|date('Y-m-d ') : '' }}</p>
-                        <div class="btn-group" role="group">
-                        <a href="{{ path('app_event_showf', {'id': event.id}) }}" class="btn btn-primary">Show</a>
-                        <a href="{{ path('app_participation_newp', {'eventId': event.id}) }}" class="btn btn-primary">Participate</a>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        {% else %}
-            <div class="col-12">
-                <p>No records found</p>
-            </div>
-        {% endfor %}
-    </div>
+	<div class="row">
+		{% for event in events %}
+			<div class="col-md-4 mb-4">
+				<div class="card">
+					<img src="{{ asset('img/' ~ event.image) }}" class="card-img-top" alt="#" style="height: 200px; object-fit: cover;">
+					<div class="card-body">
+						<h5 class="card-title">{{ event.nom }}</h5>
+						<p class="card-text">{{ event.description }}</p>
+						<p class="card-text">
+							<strong>Lieu:</strong>
+							{{ event.lieu }}</p>
+						<p class="card-text">
+							<strong>Date:</strong>
+							{{ event.date ? event.date|date('Y-m-d ') : '' }}</p>
+						<div class="btn-group" role="group">
+							<a href="{{ path('app_participation_newp', {'eventId': event.id}) }}" class="btn btn-primary">Participate</a>
+							<a href="{{ path('app_event_showf', {'id': event.id}) }}" class="btn btn-success rounded-pill py-2 px-4">
+								<i class="fa fa-eye ">{{ event.nbVue }}</i>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		{% else %}
+			<div class="col-12">
+				<p>No records found</p>
+			</div>
+		{% endfor %}
+	</div>
 
 {% endblock %}

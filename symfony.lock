@@ -41,6 +41,18 @@
     "endroid/qr-code-bundle": {
         "version": "4.3.3"
     },
+    "google/recaptcha": {
+        "version": "1.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "1.1",
+            "ref": "e5a4aa21f2e98d7440ae9aab6b56e307f99dd084"
+        },
+        "files": [
+            "./config/packages/google_recaptcha.yaml"
+        ]
+    },
     "gregwar/captcha-bundle": {
         "version": "v2.1.5"
     },
@@ -57,6 +69,18 @@
             "./config/routes/hwi_oauth_routing.yaml"
         ]
     },
+    "karser/karser-recaptcha3-bundle": {
+        "version": "0.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "0.1",
+            "ref": "c51ce07c10331d506762efe25b6f5843c1a5ea17"
+        },
+        "files": [
+            "./config/packages/karser_recaptcha3.yaml"
+        ]
+    },
     "knplabs/knp-paginator-bundle": {
         "version": "v5.9.0"
     },
@@ -71,6 +95,9 @@
         "files": [
             "./config/packages/knpu_oauth2_client.yaml"
         ]
+    },
+    "php-flasher/flasher-symfony": {
+        "version": "v1.15.11"
     },
     "phpunit/phpunit": {
         "version": "9.6",
@@ -393,5 +420,17 @@
     },
     "twig/extra-bundle": {
         "version": "v3.8.0"
+    },
+    "victor-prdh/recaptcha-bundle": {
+        "version": "1.8",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "1.5",
+            "ref": "f604d862b3ce4434d131a0e9b3a2eb7bb1784aff"
+        },
+        "files": [
+            "./config/packages/recaptcha.yaml"
+        ]
     }
 }

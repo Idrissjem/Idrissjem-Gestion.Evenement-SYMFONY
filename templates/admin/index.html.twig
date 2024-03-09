@@ -38,7 +38,11 @@
         window.location.href = "{{ path('app_client') }}";
     </script>
 {% endif %}
-
+{% if not is_granted('ROLE_ADMIN') %}
+    <script>
+        window.location.href = "{{ path('app_client') }}";
+    </script>
+{% endif %}
 		{% block navbar %}
 
 			<div
@@ -83,6 +87,12 @@
 						<a class="nav-link" href="{{path('app_participation_indexb')}}">
 							<i class="fa-solid fa-calendar-days"></i>
 							<span>Participation</span>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{{path('app_category_index')}}">
+							<i class="fa-solid fa-calendar-days"></i>
+							<span>Category</span>
 						</a>
 					</li>
 					<li class="nav-item">

@@ -3,31 +3,37 @@
 {% block title %}Produit{% endblock %}
 
 {% block body %}
-    <h1>Produit</h1>
-
-    <table class="table">
-        <tbody>
-           
-            <tr>
-                <th>Nom</th>
-                <td>{{ produit.nom }}</td>
-            </tr>
-            <tr>
-                <th>Prix</th>
-                <td>{{ produit.prix }}</td>
-            </tr>
-            <tr>
-                <th>Marque</th>
-                <td>{{ produit.marque }}</td>
-            </tr>
-            <tr>
-                <th>Image</th>
-                <td><img src="{{ asset('img/' ~ produit.image) }}" class="card-img-top" alt="#" style="height: 60px; width: 100px; object-fit: cover;"></td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_produit_indexf') }}">back to list</a>
-
-  
+    <div class="product">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Produit</h1>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th>Nom</th>
+                                <td>{{ produit.nom }}</td>
+                            </tr>
+                            <tr>
+                                <th>Prix</th>
+                                <td>{{ produit.prix }}</td>
+                            </tr>
+                            <tr>
+                                <th>category</th>
+                                <td>{{ produit.category }}</td>
+                            </tr>
+                            <tr>
+                                <th>Image</th>
+                                <td><img src="{{ asset('img/' ~ produit.image) }}" class="card-img-top" alt="#" style="height: 60px; width: 100px; object-fit: cover;"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <center>
+                        <a href="{{ path('app_produit_indexf') }}" class="btn btn-info">back to list</a>
+                    </center>
+                    <br> <!-- Line break here -->
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

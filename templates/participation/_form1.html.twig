@@ -30,11 +30,7 @@
     {{ form_errors(form.date) }}
 </div>
 
-<div class="mb-3">
-    {{ form_label(form.user, 'Utilisateur', {'label_attr': {'class': 'form-label'}}) }}
-    {{ form_widget(form.user, {'attr': {'class': 'form-control'}}) }}
-    {{ form_errors(form.user) }}
-</div>
+
 
 <button type="submit" class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
 

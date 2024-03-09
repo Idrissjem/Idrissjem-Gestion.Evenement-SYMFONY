@@ -42,6 +42,20 @@ class Event
     #[ORM\OneToMany(targetEntity: Participation::class, mappedBy: 'event')]
     private Collection $participations;
 
+    #[ORM\Column]
+    private ?int $nbvue = 0;
+
+    public function getNbVue(): ?int
+    {
+        return $this->nbvue;
+    }
+
+    public function setNbVue(?int $nbvue): self
+    {
+        $this->nbvue = $nbvue;
+
+        return $this;
+    }
     public function __construct()
     {
         $this->participations = new ArrayCollection();

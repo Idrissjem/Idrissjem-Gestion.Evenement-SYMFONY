@@ -25,13 +25,13 @@ class ParticipationType1 extends AbstractType
                 'label' => 'Date de l\'événement',
                 // autres options...
             ])
-            ->add('user', EntityType::class, [
-                'label' => 'Utilisateur',
-                'class' => User::class,
-                'choice_label' => function(User $user) {
-                    return $user->getName();                 },
-               
-            ])
+                // ->add('user', EntityType::class, [
+                //     'label' => 'Utilisateur',
+                //     'class' => User::class,
+                //     'choice_label' => function(User $user) {
+                //         return $user->getName();                 },
+                
+                // ])
           
             // ->add('event')
         ;

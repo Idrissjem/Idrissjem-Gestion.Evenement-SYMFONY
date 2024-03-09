@@ -58,8 +58,8 @@ class User implements UserInterface
     #[ORM\Column(length: 255)]
     private ?string $username = null;
 
-    #[ORM\Column(type:'string', length: 255)]
-    private ?string $resetToken = null;
+    // #[ORM\Column(type:'string', length: 255)]
+    // private ?string $resetToken = null;
 
     #[ORM\Column]
     private ?bool $isBanned = false; 
@@ -244,15 +244,15 @@ public function setUsername(string $username): static
 
 
 
-public function getResetToken() : ?sttring
-{
-    return $this->resetToken ;
-}
-public function setResetToken(?string $resetToken):self 
-{
- $this->resetToken= $resetToken;
- return $this ; 
-}
+// public function getResetToken() : ?sttring
+// {
+//     return $this->resetToken ;
+// }
+// public function setResetToken(?string $resetToken):self 
+// {
+//  $this->resetToken= $resetToken;
+//  return $this ; 
+// }
 public function __toString(): string
 {
     return $this->image ?? ''; 

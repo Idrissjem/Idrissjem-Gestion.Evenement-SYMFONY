@@ -6,10 +6,14 @@ use App\Entity\Event;
 use App\Entity\Participation;
 use App\Form\ParticipationType;
 use App\Form\ParticipationType1;
+use Symfony\Component\Security\Core\Security;
 
 use App\Repository\ParticipationRepository;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Doctrine\ORM\EntityManagerInterface;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,17 +35,71 @@ class ParticipationController extends AbstractController
             'participations' => $participationRepository->findAll(),
         ]);
     }
+    #[Route('/generateExcel', name: 'excel')]
+public function generateUserExcel(ParticipationRepository $partRepository): BinaryFileResponse
+{
+    $participations = $partRepository->findAll();
+    $spreadsheet = new Spreadsheet();
+    $sheet = $spreadsheet->getActiveSheet();
+
+    // Define column names
+    $columnNames = ['Event', 'Date', 'Prenom', 'Nom', 'Tel'];
+
+    // Set the entire first row at once and make it bold
+    $sheet->fromArray([$columnNames], null, 'A1');
+    $sheet->getStyle('A1:G1')->getFont()->setBold(true);
+
+    $sn = 2; // Start from the second row
+    foreach ($participations as $part) {
+        $data = [
+            $part->getEvent()->getNom(),
+            $part->getDate(),
+            $part->getPrenom(),
+            $part->getNom(),
+            $part->getTel(),
+           
+        ];
+
+        // Set data starting from the second row
+        $sheet->fromArray([$data], null, 'A' . $sn);
+
+        $sn++;
+    }
+    $sheet->getStyle('A1:D1')->applyFromArray([
+        'font' => [
+            'bold' => true,
+        ],
+    ]);
+    $writer = new Xlsx($spreadsheet);
+
+    $fileName = 'parts.xlsx';
+    $tempFile = tempnam(sys_get_temp_dir(), $fileName);
+
+     $writer->save($tempFile);
+    
+    return new BinaryFileResponse($tempFile, 200, [
+        'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'Content-Disposition' => sprintf('inline; filename="%s"', $fileName),
+    ]);
+}
 
     #[Route('/new', name: 'app_participation_new', methods: ['GET', 'POST'])]
-    public function newp(Request $request, EntityManagerInterface $entityManager): Response
+    public function newp(Request $request, EntityManagerInterface $entityManager,Security $s): Response
     {
+        $user = $s->getUser();
         $participation = new Participation();
         $form = $this->createForm(ParticipationType::class, $participation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+           
+            if($user)
+            {
+                $participation->setUser($user);
+            }
             $entityManager->persist($participation);
             $entityManager->flush();
+            $this->addFlash('success', 'Le participation a été ajouté avec succès.');
 
             return $this->redirectToRoute('app_participation_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -52,7 +110,7 @@ class ParticipationController extends AbstractController
         ]);
     }
     #[Route('/participation/new/{eventId}', name: 'app_participation_newp', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, $eventId): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, $eventId,Security $s): Response
     {
         $event = $entityManager->getRepository(Event::class)->find($eventId);
 
@@ -62,13 +120,20 @@ class ParticipationController extends AbstractController
 
         $participation = new Participation();
         $participation->setEvent($event);
-
+     
         $form = $this->createForm(ParticipationType1::class, $participation);
+        $user = $s->getUser();
+        if($user)
+        {
+            $participation->setUser($user);
+        }
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+          
             $entityManager->persist($participation);
             $entityManager->flush();
+            $this->addFlash('success', 'Le participation a été ajouté avec succès.');
 
             return $this->redirectToRoute('app_participation_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -107,6 +172,7 @@ class ParticipationController extends AbstractController
 
             return $this->redirectToRoute('app_participation_index', [], Response::HTTP_SEE_OTHER);
         }
+        $this->addFlash('success', 'Le participation a été modifié avec succès.');
 
         return $this->renderForm('participation/edit.html.twig', [
             'participation' => $participation,
@@ -121,6 +187,7 @@ class ParticipationController extends AbstractController
             $entityManager->remove($participation);
             $entityManager->flush();
         }
+        $this->addFlash('success', 'Le participation a été suprimé avec succès.');
 
         return $this->redirectToRoute('app_participation_index', [], Response::HTTP_SEE_OTHER);
     }
@@ -131,6 +198,7 @@ class ParticipationController extends AbstractController
             $entityManager->remove($participation);
             $entityManager->flush();
         }
+        $this->addFlash('success', 'Le participation a été supprimé avec succès.');
 
         return $this->redirectToRoute('app_participation_indexb', [], Response::HTTP_SEE_OTHER);
     }

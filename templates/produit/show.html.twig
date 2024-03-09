@@ -4,7 +4,7 @@
 
 {% block body %}
     <h1>Produit</h1>
-
+    </br>
     <table class="table">
         <tbody>
           
@@ -17,8 +17,8 @@
                 <td>{{ produit.prix }}</td>
             </tr>
             <tr>
-                <th>Marque</th>
-                <td>{{ produit.marque }}</td>
+                <th>category</th>
+                <td>{{ produit.category }}</td>
             </tr>
             <tr>
                 <th>Image</th>
@@ -27,9 +27,25 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_produit_index') }}">back to list</a>
+<style>
+.button-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
 
-    <a href="{{ path('app_produit_edit', {'id': produit.id}) }}">edit</a>
+.button-group form {
+    margin: 0; /* Removes any default margin */
+    display: inline-block; /* Helps the form fit into the flex layout */
+}
+</style>
 
+<div class="button-group">
+    <a href="{{ path('app_produit_index') }}" class="btn btn-dark">back to list</a>
+    <a href="{{ path('app_produit_edit', {'id': produit.id}) }}" class="btn btn-warning">edit</a>
     {{ include('produit/_delete_form.html.twig') }}
+</div>
+
+
 {% endblock %}

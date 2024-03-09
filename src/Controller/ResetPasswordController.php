@@ -35,7 +35,7 @@ class ResetPasswordController extends AbstractController
      * Display & process form to request a password reset.
      */
     #[Route('', name: 'app_forgot_password_request')]
-    public function request(Request $request, MailerInterface $mailer, TranslatorInterface $translator): Response
+    public function request(Request $request, MailerInterface $mailer, TranslatorInterface $translator, string $token = null): Response
     {
         $form = $this->createForm(ResetPasswordRequestFormType::class);
         $form->handleRequest($request);
@@ -73,7 +73,7 @@ class ResetPasswordController extends AbstractController
     /**
      * Validates and process the reset URL that the user clicked in their email.
      */
-    #[Route('/reset_password', name: 'app_reset_password')]
+    #[Route('/reset/{token}', name: 'app_reset_password')]
     public function reset(Request $request, UserPasswordHasherInterface $passwordHasher, TranslatorInterface $translator, string $token = null): Response
     {
         if ($token) {
@@ -81,8 +81,9 @@ class ResetPasswordController extends AbstractController
             // loaded in a browser and potentially leaking the token to 3rd party JavaScript.
             $this->storeTokenInSession($token);
 
-            return $this->redirectToRoute('app_reset_password');
-        }
+            return $this->render('reset_password/reset.html.twig', [
+                'resetToken' => $resetToken,
+            ]);        }
 
         $token = $this->getTokenFromSession();
         if (null === $token) {
@@ -158,7 +159,7 @@ class ResetPasswordController extends AbstractController
         }
 
         $email = (new TemplatedEmail())
-            ->from(new Address('SecurityAdmin@security.com', 'Security'))
+            ->from(new Address('support@sip-academy.com', 'Security'))
             ->to($user->getEmail())
             ->subject('Your password reset request')
             ->htmlTemplate('reset_password/email.html.twig')
@@ -173,5 +174,47 @@ class ResetPasswordController extends AbstractController
         $this->setTokenObjectInSession($resetToken);
 
         return $this->redirectToRoute('app_check_email');
+    }
+
+    #[Route('/reset_password', name: 'app_reset_password')]
+    public function resetPassword(Request $request, UserRepository $userRepository, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $passwordEncoder): Response
+    {
+        $token = $request->query->get('token');
+
+        if (!$token) {
+            // Handle case where token is missing
+            // You might want to redirect or display an error message
+        }
+
+        $user = $userRepository->findOneBy(['resetToken' => $token]);
+
+        if (!$user) {
+            // Handle case where user with the provided token is not found
+            // You might want to redirect or display an error message
+        }
+
+        $form = $this->createForm(ResetPasswordFormType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $newPassword = $form->get('password')->getData();
+
+            // Encode the new password
+            $encodedPassword = $passwordEncoder->encodePassword($user, $newPassword);
+
+            // Set the new encoded password
+            $user->setPassword($encodedPassword);
+            $user->setResetToken(null); // Clear the reset token
+
+            // Save the updated user entity
+            $entityManager->flush();
+
+            // Redirect the user to a success page or login page
+            return $this->redirectToRoute('app_login');
+        }
+
+        return $this->render('security/reset_password.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 }

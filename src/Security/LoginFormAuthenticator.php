@@ -1,5 +1,4 @@
 <?php
-// src/Security/LoginFormAuthenticator.php
 
 namespace App\Security;
 
@@ -35,6 +34,16 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
     {
         $email = $request->request->get('email', '');
         $request->getSession()->set(Security::LAST_USERNAME, $email);
+
+        // // Verify reCAPTCHA response
+        // $recaptchaResponse = $request->request->get('g-recaptcha-response');
+        // $recaptchaSecret = '6LfRCo4pAAAAADiZW2P6ZQZb0QNaiFAzQLEezFK1';
+        // $recaptcha = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret={$recaptchaSecret}&response={$recaptchaResponse}");
+        // $recaptcha = json_decode($recaptcha);
+
+        // if (!$recaptcha->success) {
+        //     throw new CustomUserMessageAuthenticationException('reCAPTCHA verification failed.');
+        // }
 
         // Retrieve the user from the database based on the email
         $user = $this->userRepository->findOneByEmail($email);

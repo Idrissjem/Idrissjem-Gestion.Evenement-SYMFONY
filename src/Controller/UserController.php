@@ -13,8 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
+
 
 #[Route('/user')]
 class UserController extends AbstractController
@@ -226,17 +225,5 @@ public function searchAndSort(Request $request, UserRepository $userRepository):
         'users' => $users,
     ]);
 }
-#[Route('/mailer', name: 'app_mailer')]
-public function sendEmail(MailerInterface $mailer)
-{
-    $email = (new Email());
 
-//….
-$mailer->send($email);
-
-    // …
-  return new Response(
-      'Email was sent'
-   );
-}
 }
